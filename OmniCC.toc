@@ -5,8 +5,11 @@
 ## Author: Tuller
 ## Version: 7.1.1
 ## SavedVariables: OmniCC4Config
+## Dependencies: gxLuaPlus
 
-libs\libs.xml
+libs\LibStub\LibStub.lua
+libs\Classy-1.0\Classy-1.0.lua
+libs\AnimationGroup\AnimationGroup.lua
 localization\localization.xml
 
 main.lua

@@ -12,9 +12,9 @@ function Classy:New(frameType, parentClass)
 
 	if parentClass then
 		class = setmetatable(class, {__index = parentClass})
-		
+
 		class.super = function(self, method, ...)
-			parentClass[method](self, ...)
+			parentClass[method](self, unpack(arg))
 		end
 	end
 
