@@ -22,7 +22,6 @@ end
 
 function OmniCC:VARIABLES_LOADED()
     self:StartupSettings()
-    self.Actions:AddDefaults()
     self:SetupEvents()
     self:SetupHooks()
 end
@@ -42,7 +41,6 @@ end
 
 function OmniCC:SetupEvents()
     self:UnregisterEvent('VARIABLES_LOADED')
-    self:RegisterEvent('ACTIONBAR_UPDATE_COOLDOWN')
     self:RegisterEvent('PLAYER_ENTERING_WORLD')
 end
 
@@ -81,10 +79,6 @@ end
 
 
 --[[ Events ]]--
-
-function OmniCC:ACTIONBAR_UPDATE_COOLDOWN()
-    self.Actions:Update()
-end
 
 function OmniCC:PLAYER_ENTERING_WORLD()
     self.Timer:ForAll('UpdateText')
