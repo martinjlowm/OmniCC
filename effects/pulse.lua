@@ -11,18 +11,18 @@ local Pulse = LibStub('Classy-1.0'):New('Frame')
 Pulse.name = L.Pulse
 Pulse.desc = L.PulseTip
 Pulse.id = 'pulse'
-Pulse.active = {}
+Pulse.instances = {}
 
 
 --[[ Run ]]--
 
 function Pulse:Run(cooldown)
-    if self.active[cooldown] then
+    if self.instances[cooldown] then
         local button = cooldown:GetParent()
         local icon = OmniCC:GetButtonIcon(button)
 
         if icon then
-            self.active[cooldown]:Start(icon)
+            self.instances[cooldown]:Start(icon)
         end
     end
 end
@@ -45,7 +45,7 @@ end
 --[[ Setup ]]--
 
 function Pulse:Setup(cooldown)
-    local pulse = self.active[cooldown]
+    local pulse = self.instances[cooldown]
     if not pulse then
         local parent = cooldown:GetParent()
         if parent then
@@ -63,7 +63,7 @@ function Pulse:Setup(cooldown)
             pulse.animation = pulse:CreatePulseAnimation()
             pulse.icon = icon
 
-            self.active[cooldown] = pulse
+            self.instances[cooldown] = pulse
         end
     end
 

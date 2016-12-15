@@ -40,38 +40,44 @@ function Shine:OnAnimationFinished()
 end
 
 function Shine:OnHide()
-    if self.animation:IsPlaying() then
-        self.animation:Finish()
+    local this = this or self
+
+    if this.animation:IsPlaying() then
+        this.animation:Finish()
     end
 
-    self:Hide()
+    this:Hide()
 end
 
 
 --[[ Setup ]]--
 
 function Shine:Setup(cooldown)
-    if self.instances[cooldown] then
-        return
+    local shine = self.instances[cooldown]
+    if not shine then
+        local parent = cooldown:GetParent()
+        if parent then
+            local shine = self:Bind(CreateFrame('Frame', nil, parent))
+            shine:SetScript('OnHide', shine.OnHide)
+            shine:SetPoint('CENTER', parent, 0, 0)
+            shine:SetHeight(parent:GetHeight())
+            shine:SetWidth(parent:GetWidth())
+            shine:SetToplevel(true)
+            shine.animation = shine:CreateShineAnimation()
+
+            local icon = shine:CreateTexture(nil, 'OVERLAY')
+            icon:SetPoint('CENTER', 0, 0)
+            icon:SetBlendMode('ADD')
+            icon:SetAllPoints(shine)
+            icon:SetTexture(self.texture)
+
+            self.instances[cooldown] = shine
+            return shine
+        end
     end
 
-    local parent = cooldown:GetParent()
-    if parent then
-        local shine = self:Bind(CreateFrame('Frame', nil, parent))
+    if shine then
         shine:Hide()
-        shine:SetScript('OnHide', shine.OnHide)
-        shine:SetAllPoints(parent)
-        shine:SetToplevel(true)
-        shine.animation = shine:CreateShineAnimation()
-
-        local icon = shine:CreateTexture(nil, 'OVERLAY')
-        icon:SetPoint('CENTER')
-        icon:SetBlendMode('ADD')
-        icon:SetAllPoints(shine)
-        icon:SetTexture(self.texture)
-
-        self.instances[cooldown] = shine
-        return shine
     end
 end
 

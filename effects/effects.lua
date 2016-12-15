@@ -22,7 +22,7 @@ function OmniCC:SetupEffect(cooldown)
     local p = cooldown:GetParent()
     p:SetScript('OnHide', function()
                     this = nil
-                    self:GetEffect(id).active[cooldown]:OnHide()
+                    self:GetEffect(id).instances[cooldown]:OnHide()
     end)
 end
 
