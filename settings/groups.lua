@@ -36,7 +36,7 @@ function OmniCC:FindGroup(cooldown)
             local group = groups[i]
             if group.enabled then
                 for _, pattern in pairs(group.rules) do
-                    if name:match(pattern) then
+                    if string.match(name, pattern) then
                         return group.id
                     end
                 end

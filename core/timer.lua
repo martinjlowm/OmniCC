@@ -96,7 +96,7 @@ function Timer:UpdateText(forceStyleUpdate)
 
     local remain = self:GetRemain()
     if remain > 0 then
-        local overallScale = self.abRatio * (self:GetEffectiveScale()/UIParent:GetScale())
+        local overallScale = self.abRatio * (self:GetEffectiveScale() / UIParent:GetScale())
 
         if overallScale < self:GetSettings().minSize then
             self.text:Hide()
